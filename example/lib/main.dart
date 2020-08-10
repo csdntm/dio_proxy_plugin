@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -16,8 +18,24 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
 
+  Future<void> _setProxy() async {
+    if (kReleaseMode) {
+      return;
+    }
+    var dio = Dio()..options.baseUrl = 'https://httpbin.org/';
+
+    var httpProxyAdapter = HttpProxyAdapter(ipAddr: 'localhost', port: 8888);
+    dio.httpClientAdapter = httpProxyAdapter;
+    var response = await dio.get('/get?a=2');
+    print(response.data);
+    // expect(response.data, contains('args'));
+    response = await dio.post('/post', data: {'a': 2});
+    print(response.data);
+  }
+
   @override
   void initState() {
+    _setProxy();
     super.initState();
     initPlatformState();
   }

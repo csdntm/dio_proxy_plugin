@@ -1,8 +1,8 @@
 name: dio_proxy_plugin
-description: A new flutter plugin project.
-version: 0.0.1
-author:
-homepage:
+description: a proxy for Dio . dio_proxy  interceptor can help us debug network traffic .
+version: 2.0.0
+
+homepage: https://github.com/csdntm/dio_proxy_plugin
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -12,11 +12,14 @@ dependencies:
   flutter:
     sdk: flutter
 
+  dio: ">=2.1.9 <=3.1.0"
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   pedantic: ^1.9.0
+  pretty_dio_logger: ^1.1.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
