@@ -19,7 +19,7 @@ public class DioProxyPlugin implements FlutterPlugin, MethodCallHandler {
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-    channel = new MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "dio_proxy_plugin");
+    channel = new MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "csdn.net/dio_proxy_plugin");
     channel.setMethodCallHandler(this);
   }
 
@@ -33,7 +33,7 @@ public class DioProxyPlugin implements FlutterPlugin, MethodCallHandler {
   // depending on the user's project. onAttachedToEngine or registerWith must both be defined
   // in the same class.
   public static void registerWith(Registrar registrar) {
-    final MethodChannel channel = new MethodChannel(registrar.messenger(), "dio_proxy_plugin");
+    final MethodChannel channel = new MethodChannel(registrar.messenger(), "csdn.net/dio_proxy_plugin");
     channel.setMethodCallHandler(new DioProxyPlugin());
   }
 

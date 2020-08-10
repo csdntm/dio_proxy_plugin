@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -16,48 +18,45 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  String _deviceProxy = '';
 
   Future<void> _setProxy() async {
-    if (kReleaseMode) {
-      return;
-    }
+    String deviceProxy = '';
     var dio = Dio()..options.baseUrl = 'https://httpbin.org/';
+    if (!kReleaseMode && Platform.isIOS) {
+      try {
+        deviceProxy = await DioProxyPlugin.deviceProxy;
+      } on PlatformException {
+        deviceProxy = '';
+        print('Failed to get system proxy.');
+      }
+      if (null != deviceProxy && deviceProxy.isNotEmpty) {
+        var arrProxy = deviceProxy.split(':');
 
-    var httpProxyAdapter = HttpProxyAdapter(ipAddr: 'localhost', port: 8888);
-    dio.httpClientAdapter = httpProxyAdapter;
-    var response = await dio.get('/get?a=2');
-    print(response.data);
-    // expect(response.data, contains('args'));
-    response = await dio.post('/post', data: {'a': 2});
-    print(response.data);
+        //设置dio proxy
+        var httpProxyAdapter = HttpProxyAdapter(
+            ipAddr: arrProxy[0], port: int.tryParse(arrProxy[1]));
+        dio.httpClientAdapter = httpProxyAdapter;
+      }
+
+      // test dio
+      var response = await dio.get('/get?a=2');
+      print(response.data);
+      response = await dio.post('/post', data: {'a': 2});
+      print(response.data);
+    }
+
+    if (!mounted) return;
+
+    setState(() {
+      _deviceProxy = deviceProxy;
+    });
   }
 
   @override
   void initState() {
-    _setProxy();
     super.initState();
-    initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await DioProxyPlugin.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
+    _setProxy();
   }
 
   @override
@@ -68,7 +67,7 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Text('Device proxy: $_deviceProxy\n'),
         ),
       ),
     );
