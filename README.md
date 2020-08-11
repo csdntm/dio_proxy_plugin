@@ -1,4 +1,4 @@
-# dio_proxy_plugin [![Pub](https://img.shields.io/pub/v/dio_proxy.svg?style=flat-square)](https://pub.dartlang.org/packages/dio_proxy)
+# dio_proxy_plugin [![Pub](https://img.shields.io/pub/v/dio_proxy_plugin.svg?style=flat-square)](https://pub.dartlang.org/packages/dio_proxy_plugin)
 
 A new Flutter package project.
 
