@@ -1,14 +1,33 @@
-# dio_proxy_plugin
+# dio_proxy_plugin [![Pub](https://img.shields.io/pub/v/dio_proxy.svg?style=flat-square)](https://pub.dartlang.org/packages/dio_proxy)
 
-A new flutter plugin project.
+A new Flutter package project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+### Install
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+```yaml
+dependencies:
+  dio_proxy: x.x.x #latest version
+```
+
+### Usage
+
+```dart
+import 'package:dio/dio.dart';
+import 'package:dio_proxy/dio_proxy.dart';
+
+void main() async{
+
+    Dio dio = Dio()
+      ..options.baseUrl = "https://httpbin.org/"
+      ..httpClientAdapter = HttpProxyAdapter(ipAddr: 'localhost', port: 8888);
+    
+    Response<String> response = await dio.get('/get?a=2');
+    print(response.data);
+
+    response = await dio.post('/post', data: {"a": 2});
+    print(response.data);
+}
+
+```
