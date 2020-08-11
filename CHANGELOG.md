@@ -1,3 +1,3 @@
-## 0.0.1
+## 2.0.1
 
-* TODO: Describe initial release.
+* 完成 dio proxy adapter 开发
