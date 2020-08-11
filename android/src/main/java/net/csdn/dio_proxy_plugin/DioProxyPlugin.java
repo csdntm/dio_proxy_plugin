@@ -1,7 +1,7 @@
 package net.csdn.dio_proxy_plugin;
 
 import androidx.annotation.NonNull;
-
+import android.text.TextUtils;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -39,8 +39,15 @@ public class DioProxyPlugin implements FlutterPlugin, MethodCallHandler {
 
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
-    if (call.method.equals("getPlatformVersion")) {
-      result.success("Android " + android.os.Build.VERSION.RELEASE);
+    if (call.method.equals("getDeviceProxy")) {
+      String proxyHost = System.getProperty("http.proxyHost");
+      String proxyPort = System.getProperty("http.proxyPort");
+      if (!TextUtils.isEmpty(proxyHost)
+              && !TextUtils.isEmpty(proxyPort) && TextUtils.isDigitsOnly(proxyPort) && Integer.parseInt(proxyPort) > -1) {
+          result.success(String.format("%1$s:%2$d", proxyHost, Integer.parseInt(proxyPort)));
+      } else {
+          result.success(null);
+      }
     } else {
       result.notImplemented();
     }

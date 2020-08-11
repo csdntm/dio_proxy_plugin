@@ -23,7 +23,8 @@ class _MyAppState extends State<MyApp> {
   Future<void> _setProxy() async {
     String deviceProxy = '';
     var dio = Dio()..options.baseUrl = 'https://httpbin.org/';
-    if (!kReleaseMode && Platform.isIOS) {
+
+    if (!kReleaseMode) {
       try {
         deviceProxy = await DioProxyPlugin.deviceProxy;
       } on PlatformException {
@@ -63,13 +64,18 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: Text('Device proxy: $_deviceProxy\n'),
-        ),
-      ),
+          appBar: AppBar(
+            title: const Text('Plugin example app'),
+          ),
+          body: GestureDetector(
+            onTap: () {
+              _setProxy();
+              print("set Proxy");
+            },
+            child: Center(
+              child: Text('Device proxy: $_deviceProxy\n'),
+            ),
+          )),
     );
   }
 }
