@@ -9,7 +9,7 @@ void main() {
 
   setUp(() {
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return '42';
+      return 'localhost:8888';
     });
   });
 
@@ -17,7 +17,7 @@ void main() {
     channel.setMockMethodCallHandler(null);
   });
 
-  test('getPlatformVersion', () async {
-    expect(await DioProxyPlugin.deviceProxy, '42');
+  test('getDeviceProxy', () async {
+    expect(await DioProxyPlugin.deviceProxy, 'localhost:8888');
   });
 }
