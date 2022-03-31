@@ -9,7 +9,6 @@ dependencies:
   dio: '>=4.0.0'
   dio_proxy_plugin:
     path: ../
-  cupertino_icons: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

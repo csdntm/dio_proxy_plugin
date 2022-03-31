@@ -11,8 +11,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  pedantic: any
-  pretty_dio_logger: any
 flutter:
   plugin:
     platforms:
