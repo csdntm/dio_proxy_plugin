@@ -33,10 +33,10 @@ class _MyAppState extends State<MyApp> {
       }
       if (null != deviceProxy && deviceProxy.isNotEmpty) {
         var arrProxy = deviceProxy.split(':');
-
+        final port = int.tryParse(arrProxy[1]) ?? 8888;
         //设置dio proxy
         var httpProxyAdapter = HttpProxyAdapter(
-            ipAddr: arrProxy[0], port: int.tryParse(arrProxy[1]));
+            ipAddr: arrProxy[0], port: port);
         dio.httpClientAdapter = httpProxyAdapter;
       }
 
