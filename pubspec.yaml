@@ -3,12 +3,11 @@ description: a proxy for Dio . dio_proxy  interceptor can help us debug network 
 version: 2.0.1
 homepage: 'https://github.com/csdntm/dio_proxy_plugin'
 environment:
-  sdk: '>=2.7.0 <4.0.0'
-  flutter: '>=2.0.0'
+  sdk: '>=2.12.0 <3.0.0'
 dependencies:
   flutter:
     sdk: flutter
-  dio: '>=2.1.9'
+  dio: '>=4.0.0'
 dev_dependencies:
   flutter_test:
     sdk: flutter
