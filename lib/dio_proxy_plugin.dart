@@ -10,6 +10,6 @@ class DioProxyPlugin {
 
   static Future<String> get deviceProxy async {
     final version = await _channel.invokeMethod('getDeviceProxy');
-    return version;
+    return version ?? "";
   }
 }
