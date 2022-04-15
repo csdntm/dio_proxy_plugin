@@ -1,12 +1,10 @@
-import 'dart:io';
-
-import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:flutter/services.dart';
+import 'package:dio/dio.dart';
 import 'package:dio_proxy_plugin/dio_proxy_plugin.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,12 +29,12 @@ class _MyAppState extends State<MyApp> {
         deviceProxy = '';
         print('Failed to get system proxy.');
       }
-      if (null != deviceProxy && deviceProxy.isNotEmpty) {
+      if (deviceProxy.isNotEmpty) {
         var arrProxy = deviceProxy.split(':');
-
+        final port = int?.tryParse(arrProxy[1]) ?? 8888;
         //设置dio proxy
-        var httpProxyAdapter = HttpProxyAdapter(
-            ipAddr: arrProxy[0], port: int.tryParse(arrProxy[1]));
+        var httpProxyAdapter =
+            HttpProxyAdapter(ipAddr: arrProxy[0], port: port);
         dio.httpClientAdapter = httpProxyAdapter;
       }
 
