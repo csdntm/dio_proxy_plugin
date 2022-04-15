@@ -1,6 +1,6 @@
 name: dio_proxy_plugin
 description: a proxy for Dio . dio_proxy  interceptor can help us debug network traffic .
-version: 2.0.1
+version: 2.0.3
 homepage: 'https://github.com/csdntm/dio_proxy_plugin'
 environment:
   sdk: '>=2.12.0 <3.0.0'
